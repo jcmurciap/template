@@ -31,7 +31,7 @@ export const Navigation = () => {
                         )}
 
                         {/*Rutas no existen*/}
-                        <Route path={"/*"} element={<Navigate to="/lazy1" replace/>} />
+                        <Route path={"/*"} element={<Navigate to="/lazyload" replace />} />
                     </Routes>
                 </div>
             </BrowserRouter>
