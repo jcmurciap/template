@@ -1,12 +1,14 @@
-import {ProductCard} from "../components/ProductCard";
+import {ProductButtons, ProductCard, ProductImage, ProductTitle} from "../components/ProductCard";
+import {useProduct} from "../hooks/useProduct";
 
 const product = {
     id: "1",
-    title: "Mug",
-    img: './coffee-mug.png'
+    title: "Mugman",
+    img: './coffee-mug.png',
 }
 
 export const ShoppingPage = () => {
+
     return (
         <div>
             <h1>Shopping Store</h1>
@@ -16,9 +18,11 @@ export const ShoppingPage = () => {
                 flexDirection: 'row',
                 flexWrap: 'wrap'
             }}>
-                <ProductCard product={product}/>
-                <ProductCard product={product}/>
-                <ProductCard product={product}/>
+                <ProductCard product={product}>
+                    <ProductImage />
+                    <ProductTitle />
+                    <ProductButtons />
+                </ProductCard>
             </div>
         </div>
     )
