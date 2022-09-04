@@ -1,0 +1,17 @@
+.bg-dark {
+    background-color: rgb(56, 56, 56);
+    color: white;
+}
+.text-white {
+    color: white;
+}
+.custom-image {
+    padding: 10px;
+    border-radius: 20px;
+    width: calc(100% - 20px);
+}
+.btn-dark-mode button, .btn-dark-mode div {
+    padding: 5px;
+    color: white;
+    border-color: white;
+}
