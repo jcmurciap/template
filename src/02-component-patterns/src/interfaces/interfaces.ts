@@ -6,6 +6,7 @@ export interface ProductCardProps {
     className?: string;
     style?: CSSProperties;
     onChange?: (args:onChangeArgs) => void;
+    value?: number;
 }
 
 export interface Product {

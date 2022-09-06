@@ -37,8 +37,8 @@ const onProductCountChange = ({count, product}:{count:number, product: Product})
             [product.id]: {...product, count}
         }
     })
-}
 
+}
     return (
         <div>
             <h1>Shopping Store</h1>
@@ -54,7 +54,7 @@ const onProductCountChange = ({count, product}:{count:number, product: Product})
                             product={product}
                             className="bg-dark"
                             key={product.id}
-                            onChange={(event) => onProductCountChange(event)}
+                            onChange={onProductCountChange}
                         >
                             <ProductImage className="custom-image"/>
                             <ProductTitle className="text-white"/>
@@ -64,27 +64,26 @@ const onProductCountChange = ({count, product}:{count:number, product: Product})
                 }
             </div>
             <div className="shopping-card">
-                <ProductCard
-                    product={product2}
-                    className="bg-dark"
-                    style={{width: '100px'}}
-                >
-                    <ProductImage className="custom-image"/>
-                    <ProductButtons className="btn-dark-mode"/>
-                </ProductCard>
-                <ProductCard
-                    product={product}
-                    className="bg-dark"
-                    style={{width: '100px'}}
-                >
-                    <ProductImage className="custom-image"/>
-                    <ProductButtons className="btn-dark-mode"/>
-                </ProductCard>
-            </div>
-            <div>
-                <code>
-                    {JSON.stringify(shoppingCart, null, 5)}
-                </code>
+                {
+                    Object.entries(shoppingCart).map(([key, product]) => (
+                        <ProductCard
+                            key={key}
+                            product={product}
+                            className="bg-dark"
+                            style={{width: '100px'}}
+                            value={product.count}
+                        >
+                            <ProductImage className="custom-image"/>
+                            <ProductButtons
+                                className="btn-dark-mode"
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center"
+                                }}
+                            />
+                        </ProductCard>
+                    ))
+                }
             </div>
         </div>
     )
