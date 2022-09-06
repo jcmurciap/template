@@ -26,7 +26,17 @@ export const ShoppingPage = () => {
 const [shoppingCart, setShoppingCart] = useState<{ [key: string]: ProductInCart }>({});
 
 const onProductCountChange = ({count, product}:{count:number, product: Product}) => {
-    console.log(count, product);
+    setShoppingCart(oldShoppingCart => {
+        if (count === 0) {
+            const {[product.id]:toDelete, ...rest} = oldShoppingCart
+            return rest
+        }
+
+        return {
+            ...oldShoppingCart,
+            [product.id]: {...product, count}
+        }
+    })
 }
 
     return (
@@ -70,6 +80,11 @@ const onProductCountChange = ({count, product}:{count:number, product: Product})
                     <ProductImage className="custom-image"/>
                     <ProductButtons className="btn-dark-mode"/>
                 </ProductCard>
+            </div>
+            <div>
+                <code>
+                    {JSON.stringify(shoppingCart, null, 5)}
+                </code>
             </div>
         </div>
     )
