@@ -10,13 +10,7 @@ interface useProductArgs {
 export const useProduct = ({onChange, product, value=0}: useProductArgs) => {
     const [counter, setCounter] = useState(value)
 
-    const isControlled = useRef(!!onChange); // Si eso existe
-
     const handleCounter = (value: number) => {
-        if(isControlled.current) {
-            return onChange!({count: value, product});
-        }
-
         const newValue = Math.max(0, counter + value)
         setCounter(newValue);
 
