@@ -14,8 +14,9 @@ export const useProduct = ({onChange, product, value=0, initialValues}: useProdu
     const isMounted = useRef(false); // ¿El componente esta montado?
 
     const handleCounter = (value: number) => {
-        const newValue = Math.max(counter + value, 0)
-        setCounter(newValue);
+        const maxValue =  initialValues?.maxCount || 0
+        const newValue = Math.max(counter + value, 0);
+        !(maxValue + 1===newValue) && setCounter(newValue);
 
         // Solo si onChange trae un valor ejecute la función.
         onChange && onChange({count: newValue, product});
