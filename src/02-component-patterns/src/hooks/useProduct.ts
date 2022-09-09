@@ -11,12 +11,15 @@ interface useProductArgs {
 export const useProduct = ({onChange, product, value=0, initialValues}: useProductArgs) => {
 
     const [counter, setCounter] = useState<number>(initialValues?.count || value);
+
     const isMounted = useRef(false); // ¿El componente esta montado?
 
+
+
     const handleCounter = (value: number) => {
-        const maxValue =  initialValues?.maxCount || 0
+        const maxCount =  initialValues?.maxCount || -1; // BUG si no hay maxValue
         const newValue = Math.max(counter + value, 0);
-        !(maxValue + 1===newValue) && setCounter(newValue);
+        !(maxCount + 1 === newValue) && setCounter(newValue);
 
         // Solo si onChange trae un valor ejecute la función.
         onChange && onChange({count: newValue, product});
@@ -30,6 +33,6 @@ export const useProduct = ({onChange, product, value=0, initialValues}: useProdu
     },[value]);
 
     return {
-        counter, handleCounter, onChange
+        counter, handleCounter, onChange, maxCount: initialValues?.maxCount
     }
 }
