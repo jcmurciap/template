@@ -1,60 +1,40 @@
 import {ProductButtons, ProductCard, ProductImage, ProductTitle} from "../components";
 import '../styles/custom-styles.css'
-import {useShoppingCart} from "../hooks/useShoppingCart";
 import {products} from "../data/products";
 
-export const ShoppingPage = () => {
+const product = products[0];
 
-    const {onProductCountChange, shoppingCart} = useShoppingCart();
+export const ShoppingPage = () => {
 
     return (
         <div>
             <h1>Shopping Store</h1>
             <br/>
-            <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'wrap'
-            }}>
+            <ProductCard
+                product={product}
+                className="bg-dark"
+                key={product.id}
+                initialValues={{
+                   count: 3,
+                   maxCount: 10
+            }}
+            >
                 {
-                    products.map(product => (
-                        <ProductCard
-                            product={product}
-                            className="bg-dark"
-                            key={product.id}
-                            onChange={onProductCountChange}
-                            value={shoppingCart[product.id]?.count || 0}
-                        >
+                    ({reset, count, handleCounter, maxCount, isMaxCountReached}) => (
+                        <>
                             <ProductImage className="custom-image"/>
                             <ProductTitle className="text-white"/>
                             <ProductButtons className="btn-dark-mode"/>
-                        </ProductCard>
-                    ))
+                            <button style={{margin:"3px"}} onClick={() => handleCounter(-2)}> -2 </button>
+                            {
+                                (!isMaxCountReached && <button style={{margin: "3px"}} onClick={() => handleCounter(2)}> +2 </button>)
+                            }
+                            <button style={{margin:"3px"}} onClick={reset}>Reset</button>
+                            <span style={{marginLeft:"20px", fontWeight:"bolder"}}>{count}</span>
+                        </>
+                    )
                 }
-            </div>
-            <div className="shopping-card">
-                {
-                    Object.entries(shoppingCart).map(([key, product]) => (
-                        <ProductCard
-                            key={key}
-                            product={product}
-                            className="bg-dark"
-                            style={{width: '100px'}}
-                            value={product.count}
-                            onChange={onProductCountChange}
-                        >
-                            <ProductImage className="custom-image"/>
-                            <ProductButtons
-                                className="btn-dark-mode"
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "center"
-                                }}
-                            />
-                        </ProductCard>
-                    ))
-                }
-            </div>
+            </ProductCard>
         </div>
     )
 }
