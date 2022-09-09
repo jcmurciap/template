@@ -14,15 +14,16 @@ export const useProduct = ({onChange, product, value=0, initialValues}: useProdu
 
     const isMounted = useRef(false); // ¿El componente esta montado?
 
-
-
     const handleCounter = (value: number) => {
         const maxCount =  initialValues?.maxCount || -1; // BUG si no hay maxValue
         const newValue = Math.max(counter + value, 0);
-        !(maxCount + 1 === newValue) && setCounter(newValue);
-
+        !(maxCount + 1 <= newValue) && setCounter(newValue);
         // Solo si onChange trae un valor ejecute la función.
         onChange && onChange({count: newValue, product});
+    }
+
+    const reset = () => {
+        setCounter(initialValues?.count || value)
     }
 
     useEffect(() => {
@@ -33,6 +34,10 @@ export const useProduct = ({onChange, product, value=0, initialValues}: useProdu
     },[value]);
 
     return {
-        counter, handleCounter, onChange, maxCount: initialValues?.maxCount
+        counter,
+        isMaxCountReached: !!initialValues?.count && initialValues.maxCount === counter,
+        maxCount: initialValues?.maxCount,
+        handleCounter,
+        reset
     }
 }

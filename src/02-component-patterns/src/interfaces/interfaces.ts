@@ -23,3 +23,12 @@ export interface onChangeArgs {
 export interface ProductInCart extends Product {
     count: number;
 }
+
+export interface ProductCartHandlers {
+    count: number;
+    isMaxCountReached: boolean;
+    maxCount?: number;
+    product: Product;
+    handleCounter: (value: number) => void;
+    reset: () => void;
+}

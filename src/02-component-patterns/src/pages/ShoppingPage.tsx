@@ -20,11 +20,17 @@ export const ShoppingPage = () => {
             }}
             >
                 {
-                    () => (
+                    ({reset, count, handleCounter, maxCount, isMaxCountReached}) => (
                         <>
                             <ProductImage className="custom-image"/>
                             <ProductTitle className="text-white"/>
                             <ProductButtons className="btn-dark-mode"/>
+                            <button style={{margin:"3px"}} onClick={() => handleCounter(-2)}> -2 </button>
+                            {
+                                (!isMaxCountReached && <button style={{margin: "3px"}} onClick={() => handleCounter(2)}> +2 </button>)
+                            }
+                            <button style={{margin:"3px"}} onClick={reset}>Reset</button>
+                            <span style={{marginLeft:"20px", fontWeight:"bolder"}}>{count}</span>
                         </>
                     )
                 }
